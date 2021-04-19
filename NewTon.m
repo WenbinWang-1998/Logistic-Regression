@@ -1,6 +1,8 @@
-function [w] = NewTon(X,y,iteration)
+function [w,b] = NewTon(X,y,iteration)
 [m,d]=size(X);
-w=zeros(d,1);% starting from all zeros
+a=ones(m,1);%撇表示转置矩阵
+X=[a X];
+w=zeros(d+1,1);% starting from all zeros
 lost=L(X,y,w);%initial lost
 iter=1;
 delta=inf;
@@ -13,6 +15,8 @@ while delta>0.00001&&iter<=iteration
     delta=lost-newlost;
     lost=newlost;
 end
+b=w(1);
+w=w(2:d+1);
 end
 
 function [sig] = sigmoid(X,w)
@@ -32,6 +36,12 @@ function [jacobian] = J(X,y,w)
 sig=sigmoid(X,w);
 jacobian=1/size(X,1)*(X'*(sig-y));%d*1
 end
+
+% function [hessian] = H(X,y,w)
+% %calculate Hessian matrix
+% sig=sigmoid(X,w);
+% hessian=(1/size(X,1))*X'*diag(sig)*diag(1-sig)*X;%d*d
+% end
 
 function [hessian] = H(X,y,w)
 %calculate Hessian matrix
