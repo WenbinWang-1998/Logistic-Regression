@@ -37,14 +37,14 @@ sig=sigmoid(X,w);
 jacobian=1/size(X,1)*(X'*(sig-y));%d*1
 end
 
-% function [hessian] = H(X,y,w)
-% %calculate Hessian matrix
-% sig=sigmoid(X,w);
-% hessian=(1/size(X,1))*X'*diag(sig)*diag(1-sig)*X;%d*d
-% end
-
 function [hessian] = H(X,y,w)
 %calculate Hessian matrix
 sig=sigmoid(X,w);
-hessian=(1/size(X,1))*(sig'*(1-sig))*(X'*X);%d*d
+hessian=(1/size(X,1))*X'*diag(sig)*diag(1-sig)*X;%d*d
 end
+
+% function [hessian] = H(X,y,w)
+% %calculate Hessian matrix
+% sig=sigmoid(X,w);
+% hessian=(1/size(X,1))*(sig'*(1-sig))*(X'*X);%d*d
+% end
