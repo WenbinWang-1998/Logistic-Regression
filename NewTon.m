@@ -1,6 +1,6 @@
 function [w,b,los] = NewTon(X,y,iteration)
 [m,d]=size(X);
-a=ones(m,1);%撇表示转置矩阵
+a=ones(m,1);
 X=[a X];
 w=zeros(d+1,1);% starting from all zeros
 lost=L(X,y,w);%initial lost
@@ -33,7 +33,7 @@ end
 function [lost] = L(X,y,w)%X：m*d
 %Lost function
 sig=sigmoid(X,w);
-lost=(-1)*(sum(y.*log(sig)+(1-y).*log(1-sig)))/size(X,1);%别忘除m
+lost=(-1)*(sum(y.*log(sig)+(1-y).*log(1-sig)))/size(X,1);
 end
 
 function [jacobian] = J(X,y,w)
