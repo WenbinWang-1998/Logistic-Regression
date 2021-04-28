@@ -45,7 +45,11 @@ end
 function [hessian] = H(X,y,w)
 %calculate Hessian matrix
 sig=sigmoid(X,w);
-hessian=(1/size(X,1))*X'*diag(sig)*diag(1-sig)*X;%d*d
+%diag(sig)*diag(1-sig);
+newsig=sig.*(1-sig);
+d=size(X,2);
+%hessian=(1/size(X,1))*X'*diag(newsig)*X;%d*d
+hessian=(1/size(X,1))*X'.*repmat(newsig',d,1)*X;
 end
 
 % function [hessian] = H(X,y,w)
