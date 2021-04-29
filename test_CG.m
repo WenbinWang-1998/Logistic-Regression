@@ -1,17 +1,15 @@
 clc;
+clear;
 close all;
-clear all;
-load('adult_train_test.mat');
-Xtrain=full(Xtrain);
-Xtest=full(Xtest);
-ytrain(find(ytrain==-1))=0;
-ytest(find(ytest==-1))=0;
-y=ytest;
+load('Datasets/real-sim.mat');
 
-[w]=Conjugate_Gradient(Xtrain,ytrain);
-b=w(1);
-w=w(2:size(Xtrain,2)+1);
-z=Xtest*w+b;
-sig=1./(1+exp(1).^((-1)*z));
-ypred=sign(sig-0.5);
-accuracy=sum(ypred==y)/size(y,1)
+tic
+[w,b,loss] = Conjugate_Gradient(Xtrain,ytrain);
+toc
+plot(loss)
+title("CG loss")
+z = Xtest*w+b;
+sig = 1./(1+exp(1).^((-1)*z));
+ypred = sign(sig-0.5);
+ypred(ypred==-1) = 0;
+Accuracy = sum(ypred==ytest)/size(ytest,1)
