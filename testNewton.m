@@ -2,14 +2,19 @@
 clc;
 close all;
 clear all;
-load('w1a.mat');
+load('ijcnn1.mat');
 Xtrain=full(Xtrain);
+%Xtrain=Xtrain(:,1:2000);
 Xtest=full(Xtest);
+%Xtest=Xtest(:,1:2000);
+%ytrain=ytrain(1:20,:);
 %y=ytest;
 %ytest(find(ytest==-1))=0;
-
-[w,b,los]=NewTon(Xtrain,ytrain,5);
+tic
+[w,b,los]=NewTon(Xtrain,ytrain,100);
+toc
 plot(los)
+title("Newton loss")
 z=Xtest*w+b;
 sig=1./(1+exp(1).^((-1)*z));
 ypred=sign(sig-0.5);
