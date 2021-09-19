@@ -48,4 +48,5 @@ newsig=sig.*(1-sig);
 d=size(X,2);
 %hessian=(1/size(X,1))*X'*diag(newsig)*X;%d*d
 hessian=(1/size(X,1))*X'.*repmat(newsig',d,1)*X;
+
 end
